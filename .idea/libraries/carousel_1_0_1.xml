@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="carousel-1.0.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/carousel-1.0.1.aar/7a9ecfb7926a2f4d098b0aa018d1f7a0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/carousel-1.0.1.aar/7a9ecfb7926a2f4d098b0aa018d1f7a0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/fr.rolandl/carousel/1.0.1/703ff02f191da1bcccbc03295b25c67a3e36f64a/carousel-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
