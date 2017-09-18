@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1076146477236",
+    "firebase_url": "https://guessthatmovie-88320.firebaseio.com",
+    "project_id": "guessthatmovie-88320",
+    "storage_bucket": "guessthatmovie-88320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076146477236:android:97749bf76bd24356",
+        "android_client_info": {
+          "package_name": "com.phacsin.gd.guessthatmovie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076146477236-27qichs9b290rlf3nuc4k4oghnplr3ei.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.phacsin.gd.guessthatmovie",
+            "certificate_hash": "8d05b3cfcdbaa6b9069cc9e422709ccbb1af2903"
+          }
+        },
+        {
+          "client_id": "1076146477236-sdj7b2dm227higspv6cvrna3ql4k2nve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSnz0j61GkbSDx3pERoDp5JK0M9oRCEx4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076146477236-sdj7b2dm227higspv6cvrna3ql4k2nve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

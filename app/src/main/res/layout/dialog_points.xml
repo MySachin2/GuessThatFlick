@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="2dp">
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <com.phacsin.gd.guessthatmovie.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Available Points"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"/>
+    <com.robinhood.ticker.TickerView
+        android:id="@+id/available_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"/>
+    <com.phacsin.gd.guessthatmovie.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Showing Hint will deduct 50 points"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:typeface="serif"
+        android:gravity="center"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/show_btn"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_rounded"
+            android:layout_marginBottom="15dp"
+            android:text="Show"
+            android:textColor="#FFF"
+            android:textSize="13sp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/view"
+            />
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"/>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/cancel_btn"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_rounded"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:text="Cancel"
+            android:textColor="#FFF"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/view"
+            />
+    </RelativeLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</android.support.v7.widget.CardView>
