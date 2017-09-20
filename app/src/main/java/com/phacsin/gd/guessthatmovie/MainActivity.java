@@ -1,8 +1,15 @@
 package com.phacsin.gd.guessthatmovie;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupWindowAnimations();
         carousel = (Carousel) findViewById(R.id.carousel);
         final List<String> movies = new ArrayList<>();
         movies.add("Hollywood");
@@ -29,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
         final CarouselAdapter adapter  =  new CarouselViewAdapter(this, movies);
         carousel.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        final Intent intent = new Intent(MainActivity.this,GameActivity.class);
+        final Intent intent = new Intent(MainActivity.this,ModeSelectionActivty.class);
+
+        Pair<View, String> p1 = Pair.create(findViewById(R.id.logo), "logo");
+        Pair<View, String> p2 = Pair.create(findViewById(R.id.main_text), "text");
+        final ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, p1,p2);
         carousel.setOnItemClickListener(new CarouselBaseAdapter.OnItemClickListener()
         {
 
@@ -63,5 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onMoreClick(View view) {
         startActivity(new Intent(MainActivity.this,AboutMe.class));
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setupWindowAnimations() {
+        Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.slide_transition);
+        getWindow().setExitTransition(slide);
     }
 }

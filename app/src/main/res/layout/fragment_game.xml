@@ -209,14 +209,30 @@
     </LinearLayout>
 
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <RelativeLayout
+        android:id="@+id/firework_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.phacsin.gd.guessthatmovie.MyTextView
+            android:id="@+id/text_win"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="YOU  WIN"
+            android:textColor="#000"
+            android:textSize="50sp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:shadowColor="#000"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>

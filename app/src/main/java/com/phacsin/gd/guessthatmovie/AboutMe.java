@@ -28,8 +28,9 @@ public class AboutMe extends AppCompatActivity {
                 .addGroup("Connect with us")
                 .addEmail("sachingiridhar@gmail.com")
                 .addWebsite("https://www.phacsin.com/")
-                .addFacebook("sachin.giridhar")
-                .addTwitter("MySachin2")
+                .addFacebook("phacsindevs")
+                .addTwitter("phacsindevs")
+                .addInstagram("phacsindevs")
                 .addYoutube("kEa4eE1uFdlZnhGuU6aixg")
                 .addGitHub("MySachin2")
                 .create();

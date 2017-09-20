@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.plattysoft.leonids.ParticleSystem;
 import com.robinhood.ticker.TickerUtils;
 import com.robinhood.ticker.TickerView;
 
@@ -37,6 +39,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class GameFragment extends Fragment {
     ImageView back;
+    View rootView;
     TickerView tickerView,movie_name_textView,available_points;
     int score;
     RecyclerView recyclerView;
@@ -44,7 +47,7 @@ public class GameFragment extends Fragment {
     LetterAdapter letterAdapter ;
     ScaleAnimation expand;
     ImageView letter_h,letter_o1,letter_l1,letter_l2,letter_y,letter_w,letter_o2,letter_o3,letter_d;
-    TextView leading_letter,hint_text;
+    TextView leading_letter,hint_text,text_win;
     String[] letters_shown,letters_lost;
 
     ImageView[] letter_images;
@@ -60,10 +63,11 @@ public class GameFragment extends Fragment {
     String letters_shown_str,letters_lost_str;
     private Button show_hint_main,cancel_btn,show_btn;
     SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        rootView = inflater.inflate(R.layout.fragment_game, container, false);
         mRef = FirebaseDatabase.getInstance().getReference();
         sharedPreferences = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -88,6 +92,7 @@ public class GameFragment extends Fragment {
         movie_name_textView.setGravity(Gravity.START);
 
         show_hint_main = (Button) getActivity().findViewById(R.id.show_hint);
+        show_hint_main.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         int numOfColumns = Utility.calculateNoOfColumns(getActivity());
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),numOfColumns);
@@ -99,6 +104,8 @@ public class GameFragment extends Fragment {
         leading_letter  = (TextView) rootView.findViewById(R.id.leading_letter);
         leading_letter.setText(type.substring(0,1));
         hint_text  = (TextView) rootView.findViewById(R.id.hint);
+        text_win  = (TextView) rootView.findViewById(R.id.text_win);
+
         if(movie.hint==null)
             show_hint_main.setVisibility(View.GONE);
         else {
@@ -164,6 +171,7 @@ public class GameFragment extends Fragment {
                             editor.commit();
                             dialog.dismiss();
                             dbhandler.updatePaid(original_movie_name,type,1);
+                            show_hint_main.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -187,6 +195,7 @@ public class GameFragment extends Fragment {
         letters_lost_str = movie.letters_lost;
         score = Integer.parseInt(movie.score);
         tickerView.setText(score + " ");
+        Log.d("TAG LS",movie.letters_shown + " "  + movie.movie_name + " ");
         letters_shown = movie.letters_shown.split(",");
         if(movie.letters_lost != null) {
             if(!movie.letters_lost.equals("null")) {
@@ -260,7 +269,10 @@ public class GameFragment extends Fragment {
                         dbhandler.updateScore(original_movie_name,type,String.valueOf(score),letters_shown_str,letters_lost_str);
                         dbhandler.updateStatus(original_movie_name,type,"Completed",2);
                         movie_name_textView.setText(original_movie_name);
-                        Toast.makeText(getActivity(), "YOU LOSE!!", Toast.LENGTH_LONG).show();
+                        text_win.setVisibility(View.VISIBLE);
+                        text_win.setText("GAME OVER!");
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        show_hint_main.setVisibility(View.GONE);
                     }
                 }
                 else
@@ -275,7 +287,42 @@ public class GameFragment extends Fragment {
                         int points = sharedPreferences.getInt("points",0);
                         editor.putInt("points",points + score);
                         editor.commit();
-                        Toast.makeText(getActivity(), "YOU WIN!!", Toast.LENGTH_LONG).show();
+                        text_win.setVisibility(View.VISIBLE);
+                        Animation animation = AnimationUtils.loadAnimation(getActivity(),R.anim.scale_anim);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                                text_win.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        text_win.setAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.scale_anim));
+                        text_win.startAnimation(animation);
+                        recyclerView.setVisibility(View.INVISIBLE);
+                        show_hint_main.setVisibility(View.GONE);
+                        ParticleSystem ps = new ParticleSystem(getActivity(), 100, R.drawable.confetti, 800);
+                        ps.setScaleRange(0.7f, 1.3f);
+                        ps.setSpeedRange(0.1f, 0.25f);
+                        ps.setRotationSpeedRange(90, 180);
+                        ps.setFadeOut(200, new AccelerateInterpolator());
+                        ps.oneShot(rootView.findViewById(R.id.firework_layout), 70);
+
+                        ParticleSystem ps2 = new ParticleSystem(getActivity(), 100, R.drawable.confetti_white, 800);
+                        ps2.setScaleRange(0.7f, 1.3f);
+                        ps2.setSpeedRange(0.1f, 0.25f);
+                        ps.setRotationSpeedRange(90, 180);
+                        ps2.setFadeOut(200, new AccelerateInterpolator());
+                        ps2.oneShot(rootView.findViewById(R.id.firework_layout), 70);
+
                     }
                 }
                 letters.remove(position);

@@ -25,7 +25,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String TABLE_ACTIVE_NOTIFICATION = "CREATE TABLE score(movie_name TEXT,score TEXT,type TEXT,letters_shown TEXT,letters_lost TEXT,status TEXT,hint TEXT,paid INTEGER,order_no INTEGER)";
+        String TABLE_ACTIVE_NOTIFICATION = "CREATE TABLE score(movie_name TEXT,score TEXT,type TEXT,letters_shown TEXT,letters_lost TEXT,status TEXT,hint TEXT,paid INTEGER,order_no INTEGER,time TEXT)";
         db.execSQL(TABLE_ACTIVE_NOTIFICATION);
     }
 
@@ -55,6 +55,17 @@ public class DBHandler extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             String query = "UPDATE score SET score = '" + score + "',letters_shown = '" + letters_shown + "',letters_lost = '" + letters_lost +"' WHERE movie_name='"+name+"' AND type = '" +  type+ "'";
+            db.execSQL(query);
+        }catch (SQLiteException e) {
+            Log.d("sqlite",e.toString());
+        }
+    }
+
+    public void updateBlitzScore (String name,String type,String score,String time)
+    {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "UPDATE score SET score = '" + score + "',time = '" + time + "' WHERE movie_name='"+name+"' AND type = '" +  type+ "'";
             db.execSQL(query);
         }catch (SQLiteException e) {
             Log.d("sqlite",e.toString());
